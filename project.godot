@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="multiplayer_example"
+config/name="paint_bomb"
 run/main_scene="res://ui/main_menu.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://e8p36iajtwwr"
 
 [autoload]
 
@@ -37,4 +37,4 @@ test={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.278431, 0.54902, 0.74902, 1)
+environment/defaults/default_clear_color=Color(0.945244, 0.679928, 0.673376, 1)

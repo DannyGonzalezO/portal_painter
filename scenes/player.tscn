@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://b47bwlv7dgnk6"]
+[gd_scene load_steps=16 format=3 uid="uid://b47bwlv7dgnk6"]
 
 [ext_resource type="Texture2D" uid="uid://btvqi3dcwqsrx" path="res://resources/sprites/painters/blue painter beta.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cff441quvld2o" path="res://scenes/player.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://hpl4u3425sy7" path="res://scenes/bomb.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dl80vy8siey7k" path="res://scenes/input_synchronizer.tscn" id="4_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 
-[sub_resource type="Animation" id="Animation_qhqgy"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -21,8 +22,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_dqkch"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -116,3 +117,5 @@ anim_player = NodePath("../AnimationPlayer")
 texture_filter = 3
 texture = ExtResource("1_3vyb7")
 hframes = 2
+
+[node name="InputSynchronizer" parent="." instance=ExtResource("4_dqkch")]

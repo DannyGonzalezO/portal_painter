@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://hpl4u3425sy7"]
+
+[ext_resource type="Texture2D" uid="uid://co16f8b4wy4ci" path="res://resources/sprites/bombs/blueBomb.png" id="1_4kkau"]
+[ext_resource type="Script" uid="uid://du4vnbc6tnngx" path="res://scenes/bomb.gd" id="1_vpdcx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vpdcx"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Bomb" type="Sprite2D"]
+texture_filter = 3
+texture = ExtResource("1_4kkau")
+script = ExtResource("1_vpdcx")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vpdcx")

@@ -13,6 +13,7 @@ const RED_PAINTER_BETA = preload("res://resources/sprites/painters/red painter b
 @onready var playback = animation_tree["parameters/playback"]
 @onready var pivot: Node2D = $Pivot
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
+@onready var sync_timer: Timer = $SyncTimer
 
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
@@ -20,13 +21,16 @@ func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
 	input_synchronizer.set_multiplayer_authority(player_data.id)
 	sprite.texture = BLUE_PAINTER_BETA if player_data.role == Statics.Role.ROLE_A else RED_PAINTER_BETA
+	if is_multiplayer_authority():
+		sync_timer.timeout.connect(_on_sync)
+		sync_timer.start()
 
 func _physics_process(delta: float) -> void:
 	var move_input = input_synchronizer.move_input
 	velocity = velocity.move_toward(move_input * max_speed, acceleration *delta)
 	if move_input == Vector2.ZERO:
 		velocity = velocity.move_toward(Vector2.ZERO, deceleration * delta)
-	#send_data.rpc(position, velocity)
+	
 	if input_synchronizer.bomb:
 		input_synchronizer.bomb = false
 		if is_multiplayer_authority():
@@ -36,6 +40,10 @@ func _physics_process(delta: float) -> void:
 		pivot.scale.x = sign(move_input.x)
 	
 	move_and_slide()
+	
+	if is_multiplayer_authority():
+		send_data.rpc(position, velocity)
+		
 	# animations
 	if velocity:
 		playback.travel("walk")
@@ -58,3 +66,5 @@ func bomb(spawn_position: Vector2):
 	bomb_inst.global_position = spawn_position
 	multiplayer_spawner.add_child(bomb_inst, true)
 	
+func _on_sync() -> void:
+	send_data.rpc(position, velocity)

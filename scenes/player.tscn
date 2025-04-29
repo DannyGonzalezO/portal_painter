@@ -83,6 +83,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 3
+motion_mode = 1
 script = ExtResource("2_g2els")
 bomb_scene = ExtResource("3_qhqgy")
 
@@ -119,3 +120,7 @@ texture = ExtResource("1_3vyb7")
 hframes = 2
 
 [node name="InputSynchronizer" parent="." instance=ExtResource("4_dqkch")]
+
+[node name="SyncTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1

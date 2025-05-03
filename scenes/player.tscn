@@ -85,6 +85,9 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 texture_filter = 3
 motion_mode = 1
 script = ExtResource("2_g2els")
+max_speed = null
+acceleration = null
+deceleration = null
 bomb_scene = ExtResource("3_qhqgy")
 
 [node name="Label" type="Label" parent="."]

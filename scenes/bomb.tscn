@@ -1,17 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://hpl4u3425sy7"]
+[gd_scene load_steps=6 format=3 uid="uid://hpl4u3425sy7"]
 
 [ext_resource type="Texture2D" uid="uid://co16f8b4wy4ci" path="res://resources/sprites/bombs/blueBomb.png" id="1_4kkau"]
-[ext_resource type="Script" uid="uid://du4vnbc6tnngx" path="res://scenes/bomb.gd" id="1_vpdcx"]
+[ext_resource type="Script" uid="uid://dau05873o6wro" path="res://scripts/bomb.gd" id="1_vpdcx"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vpdcx"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kkau"]
+atlas = ExtResource("1_4kkau")
+region = Rect2(0, 0, 32, 32)
 
-[node name="Bomb" type="Sprite2D"]
-texture_filter = 3
-texture = ExtResource("1_4kkau")
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpdcx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kkau")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j15uc"]
+size = Vector2(16, 16)
+
+[node name="Bomb" type="Area2D"]
 script = ExtResource("1_vpdcx")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_vpdcx")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vpdcx")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_j15uc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

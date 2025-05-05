@@ -9,4 +9,5 @@ func _ready() -> void:
 	initial_x = (get_viewport_rect().size.x / 2) / zoom.x - offset_camera_x
 
 func _process(delta:float) -> void:
-	position.x = node_to_follow.position.x + initial_x
+	return
+	#position.x = node_to_follow.position.x + initial_x

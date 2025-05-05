@@ -7,5 +7,6 @@ func play_animation(animation_name: String):
 	animated_sprite_2d.play(animation_name)
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is Player:
-		(area as Player).die()
+	return 
+	#if area is Player:
+	#	(area as Player).die()

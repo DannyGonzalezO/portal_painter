@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 		elif last_non_zero_movement == Vector2.UP:
 			playback.travel("idleback")
 		elif last_non_zero_movement == Vector2.DOWN:
-			playback.travel("idleFront")
+			playback.travel("idle")
 
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -120,7 +120,7 @@ func send_data(pos: Vector2, mov: Vector2) -> void:
 		elif last_non_zero_movement == Vector2.UP:
 			playback.travel("idleBack")
 		elif last_non_zero_movement == Vector2.DOWN:
-			playback.travel("idleFront")
+			playback.travel("idle")
 
 
 func _on_sync() -> void:

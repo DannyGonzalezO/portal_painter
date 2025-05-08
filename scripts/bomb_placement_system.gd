@@ -22,7 +22,7 @@ func place_bomb():
 	var bomb_position = Vector2(round(player_position.x / tile_size) * tile_size , \
 		round(player_position.y / tile_size) * tile_size)
 	print(bomb_position)
-	#bomb.explosion_size = explosion_size
+	bomb.explosion_size = explosion_size
 	bomb.position = bomb_position
 	get_tree().root.add_child(bomb)
 	bombs_placed += 1

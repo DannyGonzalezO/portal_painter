@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dio5jigt43634"]
+[gd_scene load_steps=51 format=3 uid="uid://dio5jigt43634"]
 
 [ext_resource type="Script" uid="uid://dcno4y1yorj0t" path="res://scripts/player_b.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://b52xysvcbulq2" path="res://scripts/raycasts.gd" id="3_tuyoq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b3luk0w1w3rco" path="res://resources/sprites/painters/Painterwalksfront.png" id="6_52330"]
 [ext_resource type="Texture2D" uid="uid://hfwmeamycgg5" path="res://resources/sprites/painters/PainterWalksBack.png" id="7_j1cfb"]
 [ext_resource type="Texture2D" uid="uid://bryu8ahtbh5sq" path="res://resources/sprites/painters/PainterWalksSide.png" id="8_sr4pk"]
+[ext_resource type="Script" uid="uid://6vol5frvnoap" path="res://scripts/power_up_system.gd" id="9_52330"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3itl"]
 radius = 6.0
@@ -634,7 +635,14 @@ states/walksRight/position = Vector2(471, 170)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_d7uau"), "idle", "walksFront", SubResource("AnimationNodeStateMachineTransition_lweon"), "walksFront", "idle", SubResource("AnimationNodeStateMachineTransition_2dktj"), "idleLeft", "walksLeft", SubResource("AnimationNodeStateMachineTransition_p1apc"), "walksLeft", "idleLeft", SubResource("AnimationNodeStateMachineTransition_2700y"), "idleRight", "walksRight", SubResource("AnimationNodeStateMachineTransition_mrxoe"), "walksRight", "idleRight", SubResource("AnimationNodeStateMachineTransition_i3itl"), "idleback", "walksBack", SubResource("AnimationNodeStateMachineTransition_d3mnt"), "walksBack", "idleback", SubResource("AnimationNodeStateMachineTransition_66mew"), "idle", "walksLeft", SubResource("AnimationNodeStateMachineTransition_leiro"), "idle", "walksRight", SubResource("AnimationNodeStateMachineTransition_nvn0k"), "idle", "walksBack", SubResource("AnimationNodeStateMachineTransition_q8mwi"), "idleLeft", "walksFront", SubResource("AnimationNodeStateMachineTransition_1i170"), "idleLeft", "walksRight", SubResource("AnimationNodeStateMachineTransition_tn8lr"), "idleLeft", "walksBack", SubResource("AnimationNodeStateMachineTransition_i3f8n"), "idleRight", "walksFront", SubResource("AnimationNodeStateMachineTransition_xxlhr"), "idleRight", "walksLeft", SubResource("AnimationNodeStateMachineTransition_g5iot"), "idleRight", "walksBack", SubResource("AnimationNodeStateMachineTransition_hke5q"), "idleback", "walksFront", SubResource("AnimationNodeStateMachineTransition_cerr8"), "idleback", "walksLeft", SubResource("AnimationNodeStateMachineTransition_ri24h"), "idleback", "walksRight", SubResource("AnimationNodeStateMachineTransition_tuf4u")]
 
 [node name="Player_b" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 64
 script = ExtResource("1_dqkch")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_i3itl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_i3itl")
@@ -646,13 +654,13 @@ script = ExtResource("3_tuyoq")
 
 [node name="Left" type="Node2D" parent="Raycasts/Horizontal"]
 
-[node name="LeftHorizontalBottom" type="RayCast2D" parent="Raycasts/Horizontal/Left"]
+[node name="LeftHorizontalBottom" type="RayCast2D" parent="Raycasts/Horizontal/Left" groups=["raycasts"]]
 position = Vector2(-2, 6)
 target_position = Vector2(-4, 0)
 collision_mask = 14
 collide_with_areas = true
 
-[node name="LeftHorizontalTop" type="RayCast2D" parent="Raycasts/Horizontal/Left"]
+[node name="LeftHorizontalTop" type="RayCast2D" parent="Raycasts/Horizontal/Left" groups=["raycasts"]]
 position = Vector2(-2, -6)
 target_position = Vector2(-4, 0)
 collision_mask = 14
@@ -660,13 +668,13 @@ collide_with_areas = true
 
 [node name="Right" type="Node2D" parent="Raycasts/Horizontal"]
 
-[node name="RightHorizontalBottom" type="RayCast2D" parent="Raycasts/Horizontal/Right"]
+[node name="RightHorizontalBottom" type="RayCast2D" parent="Raycasts/Horizontal/Right" groups=["raycasts"]]
 position = Vector2(2, 6)
 target_position = Vector2(4, 0)
 collision_mask = 14
 collide_with_areas = true
 
-[node name="RightHorizontalTop" type="RayCast2D" parent="Raycasts/Horizontal/Right"]
+[node name="RightHorizontalTop" type="RayCast2D" parent="Raycasts/Horizontal/Right" groups=["raycasts"]]
 position = Vector2(2, -6)
 target_position = Vector2(4, 0)
 collision_mask = 14
@@ -676,13 +684,13 @@ collide_with_areas = true
 
 [node name="Top" type="Node2D" parent="Raycasts/Vertical"]
 
-[node name="TopVerticalRight" type="RayCast2D" parent="Raycasts/Vertical/Top"]
+[node name="TopVerticalRight" type="RayCast2D" parent="Raycasts/Vertical/Top" groups=["raycasts"]]
 position = Vector2(3, -6)
 target_position = Vector2(0, -2)
 collision_mask = 14
 collide_with_areas = true
 
-[node name="TopVerticalLeft" type="RayCast2D" parent="Raycasts/Vertical/Top"]
+[node name="TopVerticalLeft" type="RayCast2D" parent="Raycasts/Vertical/Top" groups=["raycasts"]]
 position = Vector2(-3, -6)
 target_position = Vector2(0, -2)
 collision_mask = 14
@@ -690,13 +698,13 @@ collide_with_areas = true
 
 [node name="Bottom" type="Node2D" parent="Raycasts/Vertical"]
 
-[node name="BottomVerticalRight" type="RayCast2D" parent="Raycasts/Vertical/Bottom"]
+[node name="BottomVerticalRight" type="RayCast2D" parent="Raycasts/Vertical/Bottom" groups=["raycasts"]]
 position = Vector2(2, 6)
 target_position = Vector2(0, 2)
 collision_mask = 14
 collide_with_areas = true
 
-[node name="BottomVerticalLeft" type="RayCast2D" parent="Raycasts/Vertical/Bottom"]
+[node name="BottomVerticalLeft" type="RayCast2D" parent="Raycasts/Vertical/Bottom" groups=["raycasts"]]
 position = Vector2(-2, 6)
 target_position = Vector2(0, 2)
 collision_mask = 14
@@ -726,3 +734,8 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_o81wf")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="PowerUpSystem" type="Node" parent="."]
+script = ExtResource("9_52330")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -11,6 +11,8 @@ class_name Player
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
 @onready var last_non_zero_movement: Vector2 = Vector2.DOWN
+@onready var power_up_system: Node = $PowerUpSystem
+
 
 @export var movement_speed: float = 75
 var max_bombs_at_once = 1
@@ -126,3 +128,9 @@ func send_data(pos: Vector2, mov: Vector2) -> void:
 func _on_sync() -> void:
 	if is_multiplayer_authority():
 		send_data.rpc(position, movement)
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area is PowerUp:
+		power_up_system.enable_power_up((area as PowerUp).type)
+		area.queue_free()

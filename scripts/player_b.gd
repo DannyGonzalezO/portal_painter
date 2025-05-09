@@ -22,6 +22,7 @@ var tile_size: int = 16
 
 func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
+	name = str(player_data.id)
 	input_synchronizer.set_multiplayer_authority(player_data.id)
 
 	if is_multiplayer_authority():

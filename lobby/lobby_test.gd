@@ -21,8 +21,9 @@ func _ready():
 	
 	if is_multiplayer_authority():
 		multiplayer.peer_connected.connect(_on_peer_connected)
-	
+	await get_tree().create_timer(randf_range(1,2)).timeout
 	if not _try_host():
+		await get_tree().create_timer(randf_range(1,2)).timeout
 		_try_join()
 	
 	# disable in order to be able to reach main menu again

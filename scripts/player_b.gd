@@ -81,10 +81,11 @@ func _input(event: InputEvent) -> void:
 		if movement != Vector2.DOWN:
 			snap_to_grid("vertical")
 		movement = Vector2.DOWN
-	elif Input.is_action_pressed("bomb"):
-		bomb_placement_system.place_bomb()
 	else:
 		movement = Vector2.ZERO
+	
+	if Input.is_action_pressed("bomb"):
+		bomb_placement_system.place_bomb()
 
 func die():
 	print("DIE")

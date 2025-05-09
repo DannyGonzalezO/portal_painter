@@ -12,6 +12,13 @@ var explosion_size = 1
 
 func _ready() -> void:
 	player = get_parent()
+	
+@rpc("any_peer")
+func request_bomb_placement(pos: Vector2):
+	if is_multiplayer_authority():
+		place_bomb_rpc(pos)
+		place_bomb_rpc.rpc(pos)  # Reenvía a todos los clientes
+
 
 @rpc("call_local")
 func place_bomb_rpc(pos: Vector2):
@@ -28,20 +35,20 @@ func place_bomb_rpc(pos: Vector2):
 func place_bomb():
 	if bombs_placed == player.max_bombs_at_once:
 		return
-	
+
 	var player_position = player.global_position
-	print(player.position)
 	var bomb_position = Vector2(
 		round(player_position.x / tile_size) * tile_size,
 		round(player_position.y / tile_size) * tile_size
 	)
-	print(bomb_position)
-	# Colocar local
-	place_bomb_rpc(bomb_position)
 
-	# Sincronizar con todos (incluye host también)
-	place_bomb_rpc.rpc(bomb_position)
-
-	
+	if is_multiplayer_authority():
+		# Host lo coloca y lo sincroniza con todos
+		place_bomb_rpc(bomb_position)
+		place_bomb_rpc.rpc(bomb_position)
+	else:
+		# Cliente le pide al host que lo haga
+		request_bomb_placement.rpc_id(1, bomb_position)
+		
 func on_bomb_exploded():
 	bombs_placed -= 1

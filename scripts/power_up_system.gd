@@ -11,7 +11,7 @@ func _ready() -> void:
 func enable_power_up(power_up_type: Utils.PowerUpType):
 	match power_up_type:
 		Utils.PowerUpType.BOMB_UP:
-			player.max_bombs_at_once += 2
+			player.max_bombs_at_once += 1
 			print("Increasing max bombs to: ", player.max_bombs_at_once) # Debug
 			# Sincronizar con todos los peers incluyendo al host localmente
 			player.update_max_bombs.rpc(player.max_bombs_at_once)

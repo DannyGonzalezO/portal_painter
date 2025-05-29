@@ -85,8 +85,16 @@ func _input(event: InputEvent) -> void:
 	else:
 		movement = Vector2.ZERO
 	
-	if Input.is_action_pressed("bomb"):
+	if Input.is_action_just_pressed("bomb"):
 		bomb_placement_system.place_bomb()
+
+
+
+@rpc("any_peer", "call_remote")
+func place_bomb_request():
+	if is_multiplayer_authority():
+		bomb_placement_system.place_bomb()
+
 
 func die():
 	print("DIE")
@@ -131,8 +139,22 @@ func _on_sync() -> void:
 	if is_multiplayer_authority():
 		send_data.rpc(position, movement)
 
+@rpc("any_peer", "call_remote")
+func request_power_up(power_up_type: Utils.PowerUpType) -> void:
+	if is_multiplayer_authority():
+		power_up_system.enable_power_up(power_up_type)
+		# También aplica localmente al host
+		if multiplayer.get_unique_id() == multiplayer.get_remote_sender_id():
+			power_up_system.enable_power_up(power_up_type)
+
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is PowerUp:
-		power_up_system.enable_power_up((area as PowerUp).type)
+		request_power_up.rpc((area as PowerUp).type)
 		area.queue_free()
+		
+@rpc("authority", "call_local", "reliable")
+func update_max_bombs(new_max: int):
+	max_bombs_at_once = new_max
+	print("Max bombs updated to: ", max_bombs_at_once) # Debug
+	

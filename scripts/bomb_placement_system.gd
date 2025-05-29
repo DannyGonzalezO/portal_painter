@@ -13,42 +13,51 @@ var explosion_size = 1
 func _ready() -> void:
 	player = get_parent()
 	
-@rpc("any_peer")
+@rpc("any_peer", "reliable")
 func request_bomb_placement(pos: Vector2):
 	if is_multiplayer_authority():
-		place_bomb_rpc(pos)
-		place_bomb_rpc.rpc(pos)  # Reenvía a todos los clientes
-
+		place_bomb_rpc.rpc(pos)
 
 @rpc("call_local")
 func place_bomb_rpc(pos: Vector2):
-	if bombs_placed == player.max_bombs_at_once:
-		return
-	
-	var bomb = BOMB_SCENE.instantiate()
-	bomb.position = pos
-	bomb.explosion_size = explosion_size
-	get_tree().root.add_child(bomb)
-	bombs_placed += 1
-	bomb.tree_exiting.connect(on_bomb_exploded)
+	_spawn_bomb(pos)
 
 func place_bomb():
-	if bombs_placed == player.max_bombs_at_once:
-		return
-
 	var player_position = player.global_position
 	var bomb_position = Vector2(
 		round(player_position.x / tile_size) * tile_size,
 		round(player_position.y / tile_size) * tile_size
 	)
 
+	print("Attempting to place bomb. Current bombs: ", bombs_placed, "/", player.max_bombs_at_once) # Debug
+	
 	if is_multiplayer_authority():
-		# Host lo coloca y lo sincroniza con todos
-		place_bomb_rpc(bomb_position)
 		place_bomb_rpc.rpc(bomb_position)
 	else:
-		# Cliente le pide al host que lo haga
 		request_bomb_placement.rpc_id(1, bomb_position)
-		
+
+func _spawn_bomb(pos: Vector2):
+	if bombs_placed >= player.max_bombs_at_once:
+		if multiplayer.get_unique_id() == 1:
+			print("Host: Cannot place bomb - limit reached") # Debug
+		else:
+			print("Client: Cannot place bomb - limit reached")
+		return
+	if multiplayer.get_unique_id() == 1:
+		print("Host: max bombs allowed: ", player.max_bombs_at_once)
+	else:
+		print("Client: max bombs allowed: ", player.max_bombs_at_once)
+	var bomb = BOMB_SCENE.instantiate()
+	bomb.position = pos
+	bomb.explosion_size = explosion_size
+	get_tree().root.add_child(bomb)
+	bombs_placed += 1
+	if multiplayer.get_unique_id() == 1:
+		print("Host: Bomb placed. Total: ", bombs_placed) # Debug
+	else:
+		print("Client: Bomb placed. Total: ", bombs_placed) 
+	bomb.tree_exiting.connect(on_bomb_exploded.bind())
+
 func on_bomb_exploded():
 	bombs_placed -= 1
+	print("Bomb exploded. Remaining: ", bombs_placed) # Debug

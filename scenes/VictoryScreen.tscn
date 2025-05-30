@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=3 uid="uid://s3xwwq8hrb0a"]
+
+[ext_resource type="Texture2D" uid="uid://co16f8b4wy4ci" path="res://resources/sprites/bombs/blueBomb.png" id="1_70mwv"]
+[ext_resource type="Script" uid="uid://ctm1ih0k28hbn" path="res://scripts/victory_screen.gd" id="1_86fr6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_86fr6"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_aemqt"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqmlf"]
+font_size = 40
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_86fr6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -163.5
+offset_right = 474.0
+offset_bottom = 163.5
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+texture = ExtResource("1_70mwv")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -474.0
+offset_top = -163.5
+offset_bottom = 163.5
+grow_horizontal = 0
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("1_70mwv")
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 162.0
+offset_right = 474.0
+offset_bottom = 229.0
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="GreenPoints" type="Label" parent="MarginContainer3"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_86fr6")
+horizontal_alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -474.0
+offset_top = 162.0
+offset_bottom = 229.0
+grow_horizontal = 0
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="BluePoints" type="Label" parent="MarginContainer4"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_aemqt")
+horizontal_alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -184.0
+offset_right = 184.0
+offset_bottom = 162.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Result" type="Label" parent="MarginContainer5"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_yqmlf")
+horizontal_alignment = 1

@@ -5,3 +5,5 @@ enum PowerUpType {
 	FIRE_UP,
 	WALL_PASS
 }
+
+var Score: Dictionary

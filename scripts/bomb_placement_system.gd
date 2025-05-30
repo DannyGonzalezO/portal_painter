@@ -48,8 +48,10 @@ func _spawn_bomb(pos: Vector2):
 	else:
 		print("Client: max bombs allowed: ", player.max_bombs_at_once)
 	var bomb = BOMB_SCENE.instantiate()
+	bomb.paint_layer = get_node("/root/Node/PaintLayer") # Or $PaintLayer if called from Main.gd directly
 	bomb.position = pos
 	bomb.explosion_size = explosion_size
+	bomb.owner_id = player.get_multiplayer_authority()
 	get_tree().root.add_child(bomb)
 	bombs_placed += 1
 	if multiplayer.get_unique_id() == 1:

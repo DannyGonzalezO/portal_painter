@@ -4,6 +4,8 @@ extends Node
 @onready var markers: Node2D = $Markers
 @onready var game_timer: Timer = $GameTimer
 @onready var time_label: Label = $CanvasLayer/TimeLabel
+@onready var paint_layer: TileMapLayer = $PaintLayer
+	
 
 func _ready() -> void:
 	for i in Game.players.size():
@@ -22,6 +24,18 @@ func _process(delta: float) -> void:
 func _on_game_timer_timeout() -> void:
 	go_to_victory.rpc()
 	
+func count_tiles_by_color() -> Dictionary:
+	var counts := {}
+	for x in paint_layer.get_used_cells():
+		var atlas_coords = paint_layer.get_cell_alternative_tile(x)
+		if atlas_coords in counts:
+			counts[atlas_coords] += 1
+		else:
+			counts[atlas_coords] = 1
+	print(counts)
+	return counts
+
 @rpc("any_peer","call_local","reliable")
 func go_to_victory() -> void:
+	var tiles_finales = count_tiles_by_color()
 	get_tree().change_scene_to_file("res://ui/main_menu.tscn")

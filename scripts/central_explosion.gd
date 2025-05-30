@@ -11,6 +11,9 @@ class_name CentralExplosion
 #Explosion size in all directions
 var size = 1
 var tile_size = 16
+var paint_layer: TileMapLayer = null
+var owner_id: int
+
 
 var animation_names: Array[String] = ["up", "right", "down", "left"]
 var animation_directions: Array[Vector2] = [
@@ -55,6 +58,11 @@ func create_explosion_animation_slice(animation_name: String, animation_position
 	directional_explosion.position = animation_position
 	add_child(directional_explosion)
 	directional_explosion.play_animation(animation_name)
+
+	# Paint the tile at this explosion position
+	paint_tile_at_position(global_position)
+	paint_tile_at_position(global_position + animation_position)
+
 	
 func calculate_size_of_explosion(raycast: RayCast2D):
 	var collider = raycast.get_collider()
@@ -69,7 +77,17 @@ func execute_explosion_collision(collider: Object):
 	if collider is BrickWall:
 		(collider as BrickWall).destroy()
 
-
+func paint_tile_at_position(world_position: Vector2) -> void:
+	if paint_layer == null:
+		push_warning("Paint layer is not set!")
+		return
+	var tile_coords = paint_layer.local_to_map(world_position)
+	print("OWNER DE LA BOMBA: ")
+	if owner_id == 1:
+		paint_layer.set_cell(tile_coords, 0, Vector2i(0,0), 2)
+	else:
+		paint_layer.set_cell(tile_coords, 0, Vector2i(0,0), 3)
+	#paint_layer.set_cell(tile_coords, 0, Vector2i(0,0), 1)  #1=Rojo, 2=Verde, 3=Azul
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()

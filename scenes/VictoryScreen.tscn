@@ -107,3 +107,8 @@ metadata/_edit_group_ = true
 layout_mode = 2
 label_settings = SubResource("LabelSettings_yqmlf")
 horizontal_alignment = 1
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true

@@ -8,7 +8,7 @@ var explosion_size = 1
 var paint_layer: TileMapLayer = null
 var owner_id: int
 
-func _on_timer_timeout() -> void:
+func explosion() -> void:
 	var explosion = CENTRAL_EXPLOSION.instantiate()
 	print(explosion)
 	explosion.position = position
@@ -17,3 +17,9 @@ func _on_timer_timeout() -> void:
 	explosion.paint_layer = paint_layer # Pass the paint layer to the explosion
 	get_tree().root.add_child(explosion)
 	queue_free()
+
+func _on_timer_timeout() -> void:
+	explosion()
+
+func exploded_by_other() -> void:
+	explosion()

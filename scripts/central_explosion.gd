@@ -82,7 +82,6 @@ func paint_tile_at_position(world_position: Vector2) -> void:
 		push_warning("Paint layer is not set!")
 		return
 	var tile_coords = paint_layer.local_to_map(world_position)
-	print("OWNER DE LA BOMBA: ")
 	if owner_id == 1:
 		paint_layer.set_cell(tile_coords, 0, Vector2i(0,0), 2)
 	else:
@@ -91,3 +90,8 @@ func paint_tile_at_position(world_position: Vector2) -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player:
+		(body as Player).die() #TODO Pasar argumento owner id

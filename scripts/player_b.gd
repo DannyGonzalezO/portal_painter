@@ -96,7 +96,7 @@ func place_bomb_request():
 		bomb_placement_system.place_bomb()
 
 
-func die():
+func die(): #TODO Pasar un argumento desde la explosion
 	print("DIE")
 
 func snap_to_grid(axis: String) -> void:

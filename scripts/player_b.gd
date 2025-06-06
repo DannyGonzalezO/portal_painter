@@ -13,12 +13,17 @@ class_name Player
 @onready var last_non_zero_movement: Vector2 = Vector2.DOWN
 @onready var power_up_system: Node = $PowerUpSystem
 
-
+@export var paint_layer: TileMapLayer
 @export var movement_speed: float = 75
 var max_bombs_at_once = 1
 
 var movement: Vector2 = Vector2.ZERO
 var tile_size: int = 16
+var player_source_id : int
+
+func _ready():
+	await get_tree().create_timer(0.01).timeout
+	player_source_id = 2 if get_multiplayer_authority() == 1 else 3
 
 func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
@@ -30,14 +35,36 @@ func setup(player_data: Statics.PlayerData):
 		sync_timer.start()
 
 func _process(delta: float) -> void:
+	#TODO Verificar en qué casilla estoy y si hay pintura o no
+	#TODO Aumentar velocidad si estoy en mi pintura, disminuir si estoy en la enemiga
+	
 	# Solo autoridad calcula movimiento
 	if is_multiplayer_authority():
+		#Sistema de velocidades
+		var tile_pos = paint_layer.local_to_map(global_position)
+		var tile_data = paint_layer.get_cell_alternative_tile(tile_pos) #0,tile_pos
+		#print(tile_data)
+		#print(get_multiplayer_authority())
+		var speed_multiplier := 1.0
+
+		if tile_data == player_source_id:
+			speed_multiplier = 1.5  # On own paint
+		elif tile_data in [2, 3] and tile_data != player_source_id:
+			speed_multiplier = 0.5  # On enemy paint
+		else:
+			speed_multiplier = 1.0  # Unpainted or neutral
+
+		var effective_speed = movement_speed * speed_multiplier
+		
+		
 		var collisions = raycasts.check_collisions()
 		
 		if collisions.has(movement):
 			movement = Vector2.ZERO  # Detener si hay colisión
-
-		position += movement * delta * movement_speed
+			
+		#Usar effective_speed
+		
+		position += movement * delta * effective_speed
 
 	# Animaciones sincronizadas para todos (tanto autoridad como clientes)
 	if movement != Vector2.ZERO:

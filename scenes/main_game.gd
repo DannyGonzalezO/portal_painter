@@ -14,6 +14,7 @@ func _ready() -> void:
 		players.add_child(player_inst)
 		player_inst.setup(player)
 		player_inst.global_position = markers.get_child(i).global_position
+		player_inst.paint_layer = paint_layer #Asignamos paint_layer
 		game_timer.timeout.connect(_on_game_timer_timeout)
 		
 func _process(delta: float) -> void:

@@ -14,7 +14,7 @@ func explosion() -> void:
 	explosion.position = position
 	explosion.size = explosion_size
 	explosion.owner_id = owner_id
-	explosion.paint_layer = paint_layer # Pass the paint layer to the explosion
+	explosion.paint_layer = paint_layer 
 	get_tree().root.add_child(explosion)
 	queue_free()
 

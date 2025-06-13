@@ -5,8 +5,8 @@ extends Control
 @onready var end_timer: Timer = $EndTimer
 
 func _ready() -> void:
-	var gp = Utils.Score[2]
-	var bp = Utils.Score[3]
+	var gp = Utils.Score.get(2, 0)
+	var bp = Utils.Score.get(3, 0)
 	blue_points.label_settings.font_color = Color(0,0,1)
 	blue_points.text = "%d Casillas"  %[bp]
 	green_points.label_settings.font_color = Color(0,1,0)

@@ -1,16 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://dd01wm51pr8ob"]
+[gd_scene load_steps=12 format=4 uid="uid://dd01wm51pr8ob"]
 
 [ext_resource type="Script" uid="uid://cqd15585vb0g3" path="res://scenes/main_game.gd" id="1_0rdsr"]
 [ext_resource type="Texture2D" uid="uid://coqk5r4ftod1" path="res://resources/sprites/Sprites.png" id="1_s3esy"]
 [ext_resource type="PackedScene" uid="uid://dio5jigt43634" path="res://scenes/player_b.tscn" id="2_72e8q"]
 [ext_resource type="Script" uid="uid://cwfc1jh2on3y5" path="res://scripts/camera_follow.gd" id="3_d2op2"]
-[ext_resource type="PackedScene" uid="uid://bb7ksrtqlq703" path="res://scenes/brick_wall.tscn" id="4_0rdsr"]
 [ext_resource type="Texture2D" uid="uid://b2hoeavkk672e" path="res://resources/sprites/Paint.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://ilfwcj5anxmo" path="res://resources/sprites/SidePaint.png" id="5_5cypo"]
-[ext_resource type="Script" uid="uid://dhhkx6oi08sq7" path="res://scripts/power_up_res.gd" id="6_2l77h"]
-[ext_resource type="Resource" uid="uid://b7t832h2b5p5g" path="res://resources/bomb_up.tres" id="6_ygxny"]
-[ext_resource type="Texture2D" uid="uid://b4fet0yuv2qax" path="res://resources/sprites/PowerUpFireUp.png" id="7_nqdth"]
-[ext_resource type="Resource" uid="uid://ojufcnswe3ay" path="res://resources/wall_pass.tres" id="7_wi4c7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_72e8q"]
 texture = ExtResource("1_s3esy")
@@ -263,12 +258,6 @@ texture = ExtResource("5_5cypo")
 sources/0 = SubResource("TileSetAtlasSource_nqdth")
 sources/1 = SubResource("TileSetAtlasSource_o6v7o")
 
-[sub_resource type="Resource" id="Resource_5cypo"]
-script = ExtResource("6_2l77h")
-type = 1
-texture = ExtResource("7_nqdth")
-metadata/_custom_type_script = "uid://dhhkx6oi08sq7"
-
 [node name="Node" type="Node2D"]
 script = ExtResource("1_0rdsr")
 player_scene = ExtResource("2_72e8q")
@@ -288,21 +277,6 @@ zoom = Vector2(3, 3)
 script = ExtResource("3_d2op2")
 
 [node name="BrickWalls" type="Node" parent="."]
-
-[node name="BrickWall" parent="BrickWalls" instance=ExtResource("4_0rdsr")]
-position = Vector2(-48, -32)
-power_up_res = SubResource("Resource_5cypo")
-
-[node name="BrickWall2" parent="BrickWalls" instance=ExtResource("4_0rdsr")]
-position = Vector2(-48, -64)
-
-[node name="BrickWall3" parent="BrickWalls" instance=ExtResource("4_0rdsr")]
-position = Vector2(48, 48)
-power_up_res = ExtResource("6_ygxny")
-
-[node name="BrickWall4" parent="BrickWalls" instance=ExtResource("4_0rdsr")]
-position = Vector2(80, 48)
-power_up_res = ExtResource("7_wi4c7")
 
 [node name="Markers" type="Node2D" parent="."]
 position = Vector2(-112, -64)
@@ -336,3 +310,7 @@ horizontal_alignment = 1
 wait_time = 30.0
 one_shot = true
 autostart = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bb7ksrtqlq703")
+spawn_path = NodePath("../BrickWalls")

@@ -7,3 +7,5 @@ enum PowerUpType {
 }
 
 var Score: Dictionary
+
+@export var power_ups: Dictionary [String, PowerUpRes]

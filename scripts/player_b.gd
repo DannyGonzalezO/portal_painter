@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player 
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+#@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var raycasts: Raycasts = $Raycasts
 @onready var bomb_placement_system: BombPlacementSystem = $BombPlacementSystem
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
@@ -35,9 +35,6 @@ func setup(player_data: Statics.PlayerData):
 		sync_timer.start()
 
 func _process(delta: float) -> void:
-	#TODO Verificar en qué casilla estoy y si hay pintura o no
-	#TODO Aumentar velocidad si estoy en mi pintura, disminuir si estoy en la enemiga
-	
 	# Solo autoridad calcula movimiento
 	if is_multiplayer_authority():
 		#Sistema de velocidades

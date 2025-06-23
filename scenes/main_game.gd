@@ -5,7 +5,45 @@ extends Node
 @onready var game_timer: Timer = $GameTimer
 @onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var paint_layer: TileMapLayer = $PaintLayer
+@onready var brick_walls: Node = $BrickWalls
 
+
+const BRICK_SCENE = preload("res://scenes/brick_wall.tscn")
+const START_X: int = -112
+const END_X: int = 208
+const START_Y: int = -64
+const END_Y: int = 96
+const STEP: int = 16
+
+func is_fixed_wall(x: int, y: int) -> bool:
+	# Fixed walls: Start at -96, -48, placed every 32px (skip every other tile)
+	if x < -96 or x > 192 or y < -48 or y > 80:
+		return false
+	return (x - -96) % 32 == 0 and (y - -48) % 32 == 0
+
+func spawn_bricks():
+	for x in range(START_X, END_X + 1, STEP):
+		for y in range(START_Y, END_Y + 1, STEP):
+			if is_fixed_wall(x, y):
+				continue
+			# Optional: Skip player spawn positions (prevent spawn-kill)
+			var pos = Vector2(x, y)
+			var is_near_spawn = false
+			for i in markers.get_child_count():
+				if pos.distance_to(markers.get_child(i).global_position.snapped(Vector2(STEP, STEP))) < STEP * 2:
+					is_near_spawn = true
+					break
+			if is_near_spawn:
+				continue
+
+			var brick = BRICK_SCENE.instantiate()
+			brick.global_position = pos
+
+			# Randomly assign power-up (30% chance)
+			if randi() % 10 < 3:
+				brick.power_up = Utils.power_ups.keys().pick_random()
+
+			brick_walls.add_child(brick,true)
 
 func _ready() -> void:
 	for i in Game.players.size():
@@ -16,7 +54,10 @@ func _ready() -> void:
 		player_inst.global_position = markers.get_child(i).global_position
 		player_inst.paint_layer = paint_layer #Asignamos paint_layer
 		game_timer.timeout.connect(_on_game_timer_timeout)
-		
+	#TODO: instanciar ladrillos
+	if is_multiplayer_authority():
+		spawn_bricks()
+	
 func _process(delta: float) -> void:
 	var seconds = int(game_timer.time_left) % 60
 	var minutes = int(game_timer.time_left) / 60

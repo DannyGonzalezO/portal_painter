@@ -2,5 +2,11 @@ extends Resource
 
 class_name PowerUpRes
 
-@export var type: Utils.PowerUpType
+enum PowerUpType {
+	BOMB_UP,
+	FIRE_UP,
+	WALL_PASS
+}
+
+@export var type: PowerUpType
 @export var texture: Texture

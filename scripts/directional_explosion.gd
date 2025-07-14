@@ -2,7 +2,7 @@ extends Area2D
 
 class_name DirectionalExplosion
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-var paint_layer: TileMap = null
+var paint_layer: TileMapLayer = null
 
 #func _ready() -> void:
 	#if paint_layer:
@@ -14,7 +14,7 @@ func play_animation(animation_name: String):
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		(body as Player).die()
+		(body as Player).die(paint_layer)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bomb:

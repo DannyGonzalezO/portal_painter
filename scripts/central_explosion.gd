@@ -102,4 +102,4 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		(body as Player).die() #TODO Pasar argumento owner id
+		(body as Player).die(paint_layer) #TODO Pasar argumento owner id

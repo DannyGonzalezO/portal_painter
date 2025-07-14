@@ -37,6 +37,7 @@ class PlayerData:
 	var index: int = -1
 	var role: Role
 	var vote: bool = false
+	var marker_id = 0
 	
 	func _init(new_id: int, new_name: String, new_index: int = -1, new_role: Role = Role.NONE) -> void:
 		id = new_id

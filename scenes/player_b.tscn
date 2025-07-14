@@ -645,6 +645,7 @@ script = ExtResource("1_dqkch")
 shape = SubResource("CapsuleShape2D_i3itl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.75, 0.75)
 shape = SubResource("CapsuleShape2D_i3itl")
 
 [node name="Raycasts" type="Node2D" parent="."]

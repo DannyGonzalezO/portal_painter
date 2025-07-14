@@ -48,12 +48,15 @@ func spawn_bricks():
 func _ready() -> void:
 	for i in Game.players.size():
 		var player = Game.players[i]
+		player.marker_id = i
 		var player_inst = player_scene.instantiate()
 		players.add_child(player_inst)
 		player_inst.setup(player)
 		player_inst.global_position = markers.get_child(i).global_position
 		player_inst.paint_layer = paint_layer #Asignamos paint_layer
 		game_timer.timeout.connect(_on_game_timer_timeout)
+		if multiplayer.is_server():
+			player_inst.death_requested.connect(_on_player_death_requested)
 	#TODO: instanciar ladrillos
 	if is_multiplayer_authority():
 		spawn_bricks()
@@ -77,6 +80,47 @@ func count_tiles_by_color() -> Dictionary:
 	print(counts)
 	Utils.Score = counts
 	return counts
+
+func _on_player_death_requested(paint_layer: TileMapLayer, player_id: int) -> void:
+	print("ACCEPT")
+	var player_data = Game.get_player(player_id)
+	kill_player.rpc(int(player_id))
+
+@rpc("call_local", "reliable")
+func kill_player(player_id: int) -> void:
+	print("Killed")
+	var player_node = players.get_node(str(player_id))
+	if player_node:
+		player_node.queue_free()
+	
+	var player_data = Game.get_player(player_id)
+	#var player_index = Game.players.find(player_data)
+	var respawn_timer = Timer.new()
+	respawn_timer.one_shot = true
+	respawn_timer.wait_time = 4.0
+	add_child(respawn_timer)
+	respawn_timer.timeout.connect(func():
+		respawn_player(player_id)
+		respawn_timer.queue_free()
+	)
+	respawn_timer.start()
+
+
+func respawn_player(player_index) -> void:
+	print("RESPAWN PLAYER")
+	print(player_index)
+	var player_data = Game.get_player(player_index)
+	var new_player = player_scene.instantiate()
+	new_player.paint_layer = paint_layer
+	
+	
+	new_player.global_position = markers.get_child(player_data.marker_id).position
+	#new_player.set_multiplayer_authority(player_index, false)
+	await get_tree().physics_frame
+	new_player.setup.call_deferred(player_data)
+	players.add_child(new_player)
+	if multiplayer.is_server():
+		new_player.death_requested.connect(_on_player_death_requested)
 
 @rpc("any_peer","call_local","reliable")
 func go_to_victory() -> void:

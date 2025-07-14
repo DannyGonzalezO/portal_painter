@@ -21,6 +21,8 @@ var movement: Vector2 = Vector2.ZERO
 var tile_size: int = 16
 var player_source_id : int
 
+signal death_requested(paint_layer: TileMapLayer, player_id:int) #La muerte con la layer que lo mató
+
 func _ready():
 	await get_tree().create_timer(0.01).timeout
 	player_source_id = 2 if get_multiplayer_authority() == 1 else 3
@@ -28,9 +30,8 @@ func _ready():
 func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
 	name = str(player_data.id)
-	input_synchronizer.set_multiplayer_authority(player_data.id)
-
 	if is_multiplayer_authority():
+		input_synchronizer.set_multiplayer_authority(player_data.id)
 		sync_timer.timeout.connect(_on_sync)
 		sync_timer.start()
 
@@ -120,8 +121,10 @@ func place_bomb_request():
 		bomb_placement_system.place_bomb()
 
 
-func die(): #TODO Pasar un argumento desde la explosion
+func die(paint_layer: TileMapLayer): #TODO Pasar un argumento desde la explosion
 	print("DIE")
+	if multiplayer.is_server():
+		death_requested.emit(paint_layer, int(name))
 
 func snap_to_grid(axis: String) -> void:
 	if axis == "horizontal":
@@ -161,6 +164,7 @@ func send_data(pos: Vector2, mov: Vector2) -> void:
 
 func _on_sync() -> void:
 	if is_multiplayer_authority():
+		#print(Game.get_current_player().id)
 		send_data.rpc(position, movement)
 
 @rpc("any_peer", "call_remote")
@@ -171,12 +175,12 @@ func request_power_up(power_up_type: Utils.PowerUpType) -> void:
 		if multiplayer.get_unique_id() == multiplayer.get_remote_sender_id():
 			power_up_system.enable_power_up(power_up_type)
 
-
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is PowerUp:
 		request_power_up.rpc((area as PowerUp).type)
 		area.queue_free()
 		
+
 @rpc("authority", "call_local", "reliable")
 func update_max_bombs(new_max: int):
 	max_bombs_at_once = new_max

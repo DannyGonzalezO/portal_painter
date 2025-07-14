@@ -115,7 +115,6 @@ func respawn_player(player_index) -> void:
 	
 	
 	new_player.global_position = markers.get_child(player_data.marker_id).position
-	#new_player.set_multiplayer_authority(player_index, false)
 	await get_tree().physics_frame
 	new_player.setup.call_deferred(player_data)
 	players.add_child(new_player)

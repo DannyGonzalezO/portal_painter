@@ -18,6 +18,7 @@ func _init_players() -> void:
 
 
 func _render_victory_results() -> void:
+	grid_container.columns = Game.players.size() 
 	var max_score := -1
 	var winners: Array = []
 

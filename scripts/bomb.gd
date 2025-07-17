@@ -4,6 +4,7 @@ class_name Bomb
 
 const CENTRAL_EXPLOSION = preload("res://scenes/central_explosion.tscn")
 
+
 var explosion_size = 1
 var paint_layer: TileMapLayer = null
 var owner_id: int

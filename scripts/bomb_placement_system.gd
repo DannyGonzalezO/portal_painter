@@ -3,7 +3,7 @@ extends Node
 class_name BombPlacementSystem
 
 
-
+@onready var put_sound: AudioStreamPlayer = $"../PutSound"
 const tile_size = 16
 var BOMB_SCENE = load("res://scenes/bomb.tscn")
 var player: Player = null
@@ -47,6 +47,7 @@ func _spawn_bomb(pos: Vector2):
 		print("Host: max bombs allowed: ", player.max_bombs_at_once)
 	else:
 		print("Client: max bombs allowed: ", player.max_bombs_at_once)
+	put_sound.play()
 	var bomb = BOMB_SCENE.instantiate()
 	bomb.paint_layer = get_node("/root/Node/PaintLayer") # Or $PaintLayer if called from Main.gd directly
 	bomb.position = pos

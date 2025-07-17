@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dio5jigt43634"]
+[gd_scene load_steps=53 format=3 uid="uid://dio5jigt43634"]
 
 [ext_resource type="Script" uid="uid://dcno4y1yorj0t" path="res://scripts/player_b.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://b52xysvcbulq2" path="res://scripts/raycasts.gd" id="3_tuyoq"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://hfwmeamycgg5" path="res://resources/sprites/painters/PainterWalksBack.png" id="7_j1cfb"]
 [ext_resource type="Texture2D" uid="uid://bryu8ahtbh5sq" path="res://resources/sprites/painters/PainterWalksSide.png" id="8_sr4pk"]
 [ext_resource type="Script" uid="uid://6vol5frvnoap" path="res://scripts/power_up_system.gd" id="9_52330"]
+[ext_resource type="AudioStream" uid="uid://crxw6mpsigsew" path="res://resources/songs/Retro Blop StereoUP 09.wav" id="10_j1cfb"]
+[ext_resource type="AudioStream" uid="uid://drvxgn56mv4ly" path="res://resources/songs/Retro Charge Magic 11.wav" id="11_sr4pk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3itl"]
 radius = 6.0
@@ -738,5 +740,14 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="PowerUpSystem" type="Node" parent="."]
 script = ExtResource("9_52330")
+
+[node name="PutSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_j1cfb")
+volume_db = -10.0
+
+[node name="PowerUpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_sr4pk")
+volume_db = -17.0
+pitch_scale = 0.61
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

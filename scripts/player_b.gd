@@ -12,6 +12,7 @@ class_name Player
 @onready var playback = animation_tree["parameters/playback"]
 @onready var last_non_zero_movement: Vector2 = Vector2.DOWN
 @onready var power_up_system: Node = $PowerUpSystem
+@onready var power_up_sound: AudioStreamPlayer = $PowerUpSound
 
 @export var paint_layer: TileMapLayer
 @export var movement_speed: float = 75
@@ -178,6 +179,7 @@ func request_power_up(power_up_type: Utils.PowerUpType) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is PowerUp:
 		request_power_up.rpc((area as PowerUp).type)
+		power_up_sound.play()
 		area.queue_free()
 		
 

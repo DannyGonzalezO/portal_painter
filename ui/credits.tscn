@@ -72,15 +72,11 @@ Gustavo Medel, Danny González
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer4" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control2" index="3"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -314.5
 offset_top = -181.0
-offset_right = 314.5
-grow_horizontal = 2
+offset_right = 629.0
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -88,4 +84,23 @@ bbcode_enabled = true
 text = "[center]
 [b]Sprites[/b]
 Raiden0232
+[/center]"
+
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer5" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control2" index="4"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -629.0
+offset_top = -181.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center]
+[b]Efectos de Sonido[/b]
+https://kronbits.itch.io/freesfx
 [/center]"

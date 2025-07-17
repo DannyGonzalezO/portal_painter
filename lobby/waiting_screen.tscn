@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_0nkhr"]
+[ext_resource type="Texture2D" uid="uid://btvqi3dcwqsrx" path="res://resources/sprites/painters/blue painter beta.png" id="4_ssaso"]
 [ext_resource type="AudioStream" uid="uid://cdrxcg164v50o" path="res://resources/songs/WaitScreen.mp3" id="5_ssaso"]
 
 [node name="WaitingScreen" instance=ExtResource("1_1g6tu")]
@@ -88,7 +88,7 @@ theme_type_variation = &"Zero"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("3_0nkhr")
+texture = ExtResource("4_ssaso")
 stretch_mode = 2
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1"]

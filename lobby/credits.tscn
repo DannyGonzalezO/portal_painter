@@ -74,16 +74,34 @@ theme_type_variation = &"Zero"
 layout_mode = 2
 theme_type_variation = &"Zero"
 
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer3" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -629.0
+offset_top = -90.5
+offset_bottom = 90.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center]
+[b]Música[/b]
+Gustavo Medel
+[/center]"
+
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.1
 anchor_right = 0.5
-anchor_bottom = 0.1
 offset_left = -314.5
 offset_right = 314.5
-offset_bottom = 290.0
+offset_bottom = 181.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -91,4 +109,41 @@ bbcode_enabled = true
 text = "[center]
 [b]Lobby[/b]
 Elías Zelada
+[/center]"
+
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -74.0
+offset_right = 519.0
+offset_bottom = 74.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center]
+[b]Programación, Diseño[/b]
+Gustavo Medel, Danny González
+[/center]"
+
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer4" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -314.5
+offset_top = -181.0
+offset_right = 314.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center]
+[b]Sprites[/b]
+Raiden0232
 [/center]"

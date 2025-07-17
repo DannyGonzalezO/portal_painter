@@ -71,13 +71,23 @@ func _on_game_timer_timeout() -> void:
 	
 func count_tiles_by_color() -> Dictionary:
 	var counts := {}
-	for x in paint_layer.get_used_cells():
-		var atlas_coords = paint_layer.get_cell_alternative_tile(x)
-		if atlas_coords in counts:
-			counts[atlas_coords] += 1
-		else:
-			counts[atlas_coords] = 1
-	print(counts)
+
+	# Inicializa todos los roles posibles en 0
+	for role in Statics.Role.values():
+		if role != Statics.Role.NONE:
+			counts[role] = 0
+
+	# Contar celdas pintadas
+	for cell in paint_layer.get_used_cells():
+		var tile_id: int = paint_layer.get_cell_alternative_tile(cell)
+		var role = get_role_from_tile_id(tile_id)
+
+		if role == Statics.Role.NONE:
+			continue
+
+		counts[role] += 1
+
+	print("Final score counts by role: ", counts)
 	Utils.Score = counts
 	return counts
 
@@ -120,6 +130,19 @@ func respawn_player(player_index) -> void:
 	players.add_child(new_player)
 	if multiplayer.is_server():
 		new_player.death_requested.connect(_on_player_death_requested)
+
+func get_role_from_tile_id(tile_id: int) -> Statics.Role:
+	match tile_id:
+		0:
+			return Statics.Role.YELLOW
+		1:
+			return Statics.Role.RED
+		2:
+			return Statics.Role.GREEN
+		3:
+			return Statics.Role.BLUE
+		_:
+			return Statics.Role.NONE
 
 @rpc("any_peer","call_local","reliable")
 func go_to_victory() -> void:

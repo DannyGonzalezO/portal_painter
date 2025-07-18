@@ -206,5 +206,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 @rpc("authority", "call_local", "reliable")
 func update_max_bombs(new_max: int):
 	max_bombs_at_once = new_max
-	print("Max bombs updated to: ", max_bombs_at_once) # Debug
+	print("Max bombs updated to: ", max_bombs_at_once)
+
 	

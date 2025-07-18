@@ -32,7 +32,10 @@ func explosion() -> void:
 	explosion.position = position
 	explosion.size = explosion_size
 	explosion.owner_id = owner_id
-	explosion.paint_layer = paint_layer
+	if is_instance_valid(paint_layer):
+		explosion.paint_layer = paint_layer
+	else:
+		print("paint_layer inválido, se omite")
 	get_tree().root.add_child(explosion)
 	queue_free()
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://byny6bp0olu78"]
+[gd_scene load_steps=7 format=3 uid="uid://byny6bp0olu78"]
 
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
 [ext_resource type="Texture2D" uid="uid://btvqi3dcwqsrx" path="res://resources/sprites/painters/blue painter beta.png" id="4_ssaso"]
 [ext_resource type="AudioStream" uid="uid://cdrxcg164v50o" path="res://resources/songs/WaitScreen.mp3" id="5_ssaso"]
+[ext_resource type="Texture2D" uid="uid://b8o1uaxehbsst" path="res://resources/sprites/2206_w019_n002_621b_p15_621.jpg" id="6_iaq1a"]
 
 [node name="WaitingScreen" instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
@@ -185,3 +186,9 @@ stream = ExtResource("5_ssaso")
 volume_db = -20.144
 autoplay = true
 parameters/looping = true
+
+[node name="2206W019N002621bP15621" type="Sprite2D" parent="." index="4"]
+z_index = -1
+position = Vector2(631, 413)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_iaq1a")

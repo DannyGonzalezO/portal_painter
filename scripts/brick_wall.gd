@@ -15,8 +15,9 @@ func destroy():
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "destroy":
 		if power_up:
-			spawn_power_up()
+			spawn_power_up.rpc(power_up, global_position)
 		queue_free()
+
 
 func spawn_power_up():
 	print("Poder encontrado")

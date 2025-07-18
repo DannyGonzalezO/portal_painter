@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://buxla4a3c3k2"]
+[gd_scene load_steps=6 format=3 uid="uid://buxla4a3c3k2"]
 
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_3qnx1"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_p6ygj"]
 [ext_resource type="Texture2D" uid="uid://e8p36iajtwwr" path="res://resources/sprites/bombs/pink bomb beta.png" id="3_wk0pr"]
 [ext_resource type="AudioStream" uid="uid://dkv88yd2aa2rf" path="res://resources/songs/MainTitle.mp3" id="4_rmr83"]
+[ext_resource type="Texture2D" uid="uid://b8o1uaxehbsst" path="res://resources/sprites/2206_w019_n002_621b_p15_621.jpg" id="5_8uxxo"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -89,6 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="MarginContainer3"]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 theme_type_variation = &"Title"
 text = "PAINT BOMB"
@@ -98,3 +100,9 @@ stream = ExtResource("4_rmr83")
 volume_db = -15.928
 autoplay = true
 parameters/looping = true
+
+[node name="2206W019N002621bP15621" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(641, 412)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_8uxxo")

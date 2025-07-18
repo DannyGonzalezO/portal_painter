@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bj1i23wquei4u"]
+[gd_scene load_steps=3 format=3 uid="uid://bj1i23wquei4u"]
 
 [ext_resource type="Script" uid="uid://dubtb6awynq" path="res://lobby/lobby_test.gd" id="1_cksts"]
+[ext_resource type="Texture2D" uid="uid://b8o1uaxehbsst" path="res://resources/sprites/2206_w019_n002_621b_p15_621.jpg" id="2_4ty1j"]
 
 [node name="LobbyTest" type="Node"]
 script = ExtResource("1_cksts")
@@ -8,3 +9,9 @@ script = ExtResource("1_cksts")
 [node name="StartGameTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="2206W019N002621bP15621" type="Sprite2D" parent="."]
+z_index = -8
+position = Vector2(347, 163)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4ty1j")

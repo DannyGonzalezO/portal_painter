@@ -243,8 +243,9 @@ sources/0 = SubResource("TileSetAtlasSource_72e8q")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nqdth"]
 texture = ExtResource("4_2l77h")
-0:0/next_alternative_id = 4
+0:0/next_alternative_id = 5
 0:0/0 = 0
+0:0/0/modulate = Color(1, 1, 0, 1)
 0:0/1 = 1
 0:0/1/modulate = Color(1, 0, 0, 1)
 0:0/2 = 2

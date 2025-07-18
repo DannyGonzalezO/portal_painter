@@ -9,11 +9,11 @@ func _ready() -> void:
 	print("PowerUpSystem ready for player: ", player.name) # Debug
 
 func enable_power_up(power_up_type: Utils.PowerUpType):
+	print(">> enable_power_up llamado con: ", power_up_type)
 	match power_up_type:
 		Utils.PowerUpType.BOMB_UP:
 			player.max_bombs_at_once += 1
-			print("Increasing max bombs to: ", player.max_bombs_at_once) # Debug
-			# Sincronizar con todos los peers incluyendo al host localmente
+			print(">> Aumentando bombas a: ", player.max_bombs_at_once)
 			player.update_max_bombs.rpc(player.max_bombs_at_once)
 
 

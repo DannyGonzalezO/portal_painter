@@ -188,16 +188,16 @@ func _on_sync() -> void:
 		#print(Game.get_current_player().id)
 		send_data.rpc(position, movement)
 
-@rpc("any_peer", "call_remote")
+@rpc("any_peer", "call_local")
 func request_power_up(power_up_type: Utils.PowerUpType) -> void:
-	if is_multiplayer_authority():
+	if get_multiplayer_authority() == multiplayer.get_remote_sender_id():
+		# El peer que recogió el power-up debe aplicar el efecto
+		print(">> Aplicando power-up desde autoridad para jugador ", name)
 		power_up_system.enable_power_up(power_up_type)
-		# También aplica localmente al host
-		if multiplayer.get_unique_id() == multiplayer.get_remote_sender_id():
-			power_up_system.enable_power_up(power_up_type)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is PowerUp:
+		print(">> PowerUp recogido: ", (area as PowerUp).type, " por jugador ", name)
 		request_power_up.rpc((area as PowerUp).type)
 		power_up_sound.play()
 		area.queue_free()

@@ -23,7 +23,7 @@ func _ready() -> void:
 			animated_sprite_2d.play("yellow")
 
 func play_animation(animation_name: String):
-	animated_sprite_2d.play("blue")
+	animated_sprite_2d.play(animation_name)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

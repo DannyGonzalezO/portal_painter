@@ -33,7 +33,8 @@ signal death_requested(paint_layer: TileMapLayer, player_id:int) #La muerte con 
 
 func _ready():
 	await get_tree().create_timer(0.01).timeout
-	player_source_id = 2 if get_multiplayer_authority() == 1 else 3
+	if get_multiplayer_authority() == 1:
+		player_source_id = 2 
 
 func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
@@ -44,13 +45,13 @@ func setup(player_data: Statics.PlayerData):
 			player_source_id = 2
 		Statics.Role.RED:
 			sprite.texture = TEXTURE_RED
-			player_source_id = 3
+			player_source_id = 1
 		Statics.Role.BLUE:
 			sprite.texture = TEXTURE_BLUE
-			player_source_id = 4
+			player_source_id = 3
 		Statics.Role.YELLOW:
 			sprite.texture = TEXTURE_YELLOW
-			player_source_id = 5
+			player_source_id = 0
 	if is_multiplayer_authority():
 		input_synchronizer.set_multiplayer_authority(player_data.id)
 		sync_timer.timeout.connect(_on_sync)
@@ -62,14 +63,13 @@ func _process(delta: float) -> void:
 		#Sistema de velocidades
 		var tile_pos = paint_layer.local_to_map(global_position)
 		var tile_data = paint_layer.get_cell_alternative_tile(tile_pos) #0,tile_pos
-		#print(tile_data)
+		print(tile_data) #Tile Amarillo = 0 Tile Rojo = 1; Tile Verde = 2; Tile Azul = 3 
 		#print(get_multiplayer_authority())
 		var speed_multiplier := 1.0
-
 		if tile_data == player_source_id:
 			speed_multiplier = 1.5  # On own paint
-		elif tile_data in [2, 3] and tile_data != player_source_id:
-			speed_multiplier = 0.5  # On enemy paint
+		elif tile_data != -1 and tile_data != player_source_id:
+			speed_multiplier = 0.65  # On enemy paint
 		else:
 			speed_multiplier = 1.0  # Unpainted or neutral
 

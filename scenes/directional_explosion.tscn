@@ -133,6 +133,11 @@ region = Rect2(112, 160, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3u7sd"]
 animations = [{
+"frames": [],
+"loop": false,
+"name": &"blue",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u7cai")
@@ -278,7 +283,7 @@ script = ExtResource("1_u7cai")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3u7sd")
-animation = &"up_middle"
+animation = &"blue"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5ks1g")

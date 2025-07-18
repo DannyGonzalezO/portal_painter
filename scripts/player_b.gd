@@ -15,6 +15,13 @@ class_name Player
 
 @export var paint_layer: TileMapLayer
 @export var movement_speed: float = 75
+@onready var sprite: Sprite2D = $Sprite
+
+
+const TEXTURE_GREEN = preload("res://resources/sprites/painters/Verde.png")
+const TEXTURE_RED = preload("res://resources/sprites/painters/Rojo.png")
+const TEXTURE_BLUE = preload("res://resources/sprites/painters/Azul.png")
+const TEXTURE_YELLOW = preload("res://resources/sprites/painters/Amarillo.png")
 var max_bombs_at_once = 1
 
 var movement: Vector2 = Vector2.ZERO
@@ -30,6 +37,19 @@ func _ready():
 func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id, false)
 	name = str(player_data.id)
+	match player_data.role:
+		Statics.Role.GREEN:
+			sprite.texture = TEXTURE_GREEN
+			player_source_id = 2
+		Statics.Role.RED:
+			sprite.texture = TEXTURE_RED
+			player_source_id = 3
+		Statics.Role.BLUE:
+			sprite.texture = TEXTURE_BLUE
+			player_source_id = 4
+		Statics.Role.YELLOW:
+			sprite.texture = TEXTURE_YELLOW
+			player_source_id = 5
 	if is_multiplayer_authority():
 		input_synchronizer.set_multiplayer_authority(player_data.id)
 		sync_timer.timeout.connect(_on_sync)

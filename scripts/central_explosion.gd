@@ -7,6 +7,7 @@ class_name CentralExplosion
 	$RayCasts/RayCastDown,
 	$RayCasts/RayCastLeft
 ]
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 #Explosion size in all directions
 var size = 1
@@ -27,6 +28,16 @@ const DIRECTIONAL_EXPLOSION = preload("res://scenes/directional_explosion.tscn")
 
 func _ready() -> void:
 	check_raycasts()
+	var role = get_owner_role()
+	match role:
+		Statics.Role.GREEN:
+			animated_sprite.play("green")
+		Statics.Role.BLUE:
+			animated_sprite.play("blue")
+		Statics.Role.RED:
+			animated_sprite.play("red")
+		Statics.Role.YELLOW:
+			animated_sprite.play("yellow")
 
 func check_raycasts():
 	for i in raycasts.size():
@@ -56,6 +67,7 @@ func create_explosion_for_size(size: int, animation_name: String, animation_posi
 func create_explosion_animation_slice(animation_name: String, animation_position: Vector2):
 	var directional_explosion = DIRECTIONAL_EXPLOSION.instantiate()
 	directional_explosion.position = animation_position
+	directional_explosion.owner_id = owner_id
 	add_child(directional_explosion)
 	directional_explosion.play_animation(animation_name)
 
@@ -103,3 +115,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		(body as Player).die(paint_layer) #TODO Pasar argumento owner id
+
+func get_owner_role() -> Statics.Role:
+	for p in Game.players:
+		if p.id == owner_id:
+			return p.role
+	return Statics.Role.NONE

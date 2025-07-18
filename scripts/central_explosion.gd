@@ -1,6 +1,7 @@
 extends Area2D
 
 class_name CentralExplosion
+@onready var explosion_sound: AudioStreamPlayer = $RetroWeaponGunLoFi03
 @onready var raycasts: Array[RayCast2D] = [
 	$RayCasts/RayCastUp,
 	$RayCasts/RayCastRight,
@@ -65,6 +66,7 @@ func create_explosion_for_size(size: int, animation_name: String, animation_posi
 			create_explosion_animation_slice("%s_end" % animation_name, animation_position * (i+1))
 
 func create_explosion_animation_slice(animation_name: String, animation_position: Vector2):
+	explosion_sound.play()
 	var directional_explosion = DIRECTIONAL_EXPLOSION.instantiate()
 	directional_explosion.position = animation_position
 	directional_explosion.owner_id = owner_id

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dl80vy8siey7k" path="res://scenes/input_synchronizer.tscn" id="5_augp2"]
 [ext_resource type="Texture2D" uid="uid://cq8o72i7lk181" path="res://resources/sprites/painters/Azul.png" id="5_k178q"]
 [ext_resource type="Script" uid="uid://6vol5frvnoap" path="res://scripts/power_up_system.gd" id="9_52330"]
+[ext_resource type="AudioStream" uid="uid://crxw6mpsigsew" path="res://resources/songs/Retro Blop StereoUP 09.wav" id="10_j1cfb"]
+[ext_resource type="AudioStream" uid="uid://drvxgn56mv4ly" path="res://resources/songs/Retro Charge Magic 11.wav" id="11_sr4pk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3itl"]
 radius = 6.0
@@ -582,5 +584,14 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="PowerUpSystem" type="Node" parent="."]
 script = ExtResource("9_52330")
+
+[node name="PutSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_j1cfb")
+volume_db = -10.0
+
+[node name="PowerUpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_sr4pk")
+volume_db = -17.0
+pitch_scale = 0.61
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

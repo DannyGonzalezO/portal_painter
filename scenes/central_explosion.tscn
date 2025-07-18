@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcrdkh6aud3i1"]
+[gd_scene load_steps=10 format=3 uid="uid://dcrdkh6aud3i1"]
 
 [ext_resource type="Script" uid="uid://075bhpsyrleo" path="res://scripts/central_explosion.gd" id="1_eg57w"]
 [ext_resource type="Texture2D" uid="uid://coqk5r4ftod1" path="res://resources/sprites/Sprites.png" id="1_si6ib"]
+[ext_resource type="AudioStream" uid="uid://ysd5osp6a45p" path="res://resources/songs/Retro Weapon Gun LoFi 03.wav" id="3_7inpy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eg57w"]
 atlas = ExtResource("1_si6ib")
@@ -96,6 +97,10 @@ collide_with_areas = true
 target_position = Vector2(-16, 0)
 collision_mask = 6
 collide_with_areas = true
+
+[node name="RetroWeaponGunLoFi03" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7inpy")
+volume_db = -19.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://s3xwwq8hrb0a"]
+[gd_scene load_steps=4 format=3 uid="uid://s3xwwq8hrb0a"]
 
 [ext_resource type="Script" uid="uid://ctm1ih0k28hbn" path="res://scripts/victory_screen.gd" id="1_86fr6"]
+[ext_resource type="AudioStream" uid="uid://op4od7oo30qk" path="res://resources/songs/Retro Music - ABMU - ChipWave 01.wav" id="2_70mwv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yqmlf"]
 font_size = 40
@@ -49,3 +50,7 @@ offset_top = -235.56
 offset_right = 602.28
 offset_bottom = 235.44
 columns = 2
+
+[node name="VictoryJingle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_70mwv")
+volume_db = -15.0

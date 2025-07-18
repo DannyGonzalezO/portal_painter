@@ -6,6 +6,7 @@ extends Node
 @onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var paint_layer: TileMapLayer = $PaintLayer
 @onready var brick_walls: Node = $BrickWalls
+@onready var paint_bomb_main_theme: AudioStreamPlayer = $PaintBombMainTheme
 
 
 const BRICK_SCENE = preload("res://scenes/brick_wall.tscn")
@@ -62,6 +63,7 @@ func _ready() -> void:
 	#TODO: instanciar ladrillos
 	if is_multiplayer_authority():
 		spawn_bricks()
+	paint_bomb_main_theme.play()
 	
 func _process(delta: float) -> void:
 	var seconds = int(game_timer.time_left) % 60

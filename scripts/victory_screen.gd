@@ -3,6 +3,7 @@ extends Control
 @onready var grid_container: GridContainer = $GridContainer
 @onready var result_label: Label = $MarginContainer5/Result
 @onready var end_timer: Timer = $EndTimer
+@onready var victory_jingle: AudioStreamPlayer = $VictoryJingle
 
 const PLAYER_RESULT_SCENE := preload("res://scenes/color_score.tscn")
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 	print("Utils.Score: ", Utils.Score)
 	call_deferred("_init_players")
 	end_timer.timeout.connect(_on_end_timer_timeout)
+	victory_jingle.play()
 
 func _init_players() -> void:
 	_render_victory_results()

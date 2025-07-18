@@ -29,16 +29,6 @@ const DIRECTIONAL_EXPLOSION = preload("res://scenes/directional_explosion.tscn")
 
 func _ready() -> void:
 	check_raycasts()
-	var role = get_owner_role()
-	match role:
-		Statics.Role.GREEN:
-			animated_sprite.play("green")
-		Statics.Role.BLUE:
-			animated_sprite.play("blue")
-		Statics.Role.RED:
-			animated_sprite.play("red")
-		Statics.Role.YELLOW:
-			animated_sprite.play("yellow")
 
 func check_raycasts():
 	for i in raycasts.size():

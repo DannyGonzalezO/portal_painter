@@ -65,7 +65,7 @@ func on_bomb_exploded():
 	bombs_placed -= 1
 	print("Bomb exploded. Remaining: ", bombs_placed) # Debug
 	
-@rpc("authority", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func update_explosion_size(new_max: int):
 	explosion_size = new_max
 	print("Max bombs updated to: ", explosion_size) # Debug

@@ -19,9 +19,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		queue_free()
 
 
-func spawn_power_up():
-	print("Poder encontrado")
+@rpc("any_peer", "call_local", "reliable")
+func spawn_power_up(power_up_type: String, position: Vector2):
 	var power_up_inst = POWER_UP_SCENE.instantiate()
-	power_up_inst.global_position = global_position
+	power_up_inst.global_position = position
 	get_tree().root.add_child(power_up_inst)
-	power_up_inst.init(power_up)
+	power_up_inst.init(power_up_type)

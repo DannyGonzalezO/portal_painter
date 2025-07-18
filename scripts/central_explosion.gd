@@ -60,12 +60,13 @@ func create_explosion_animation_slice(animation_name: String, animation_position
 	var directional_explosion = DIRECTIONAL_EXPLOSION.instantiate()
 	directional_explosion.position = animation_position
 	directional_explosion.owner_id = owner_id
+	directional_explosion.paint_layer = paint_layer
 	add_child(directional_explosion)
 	directional_explosion.play_animation(animation_name)
 
 	# Paint the tile at this explosion position
 	paint_tile_at_position(global_position)
-	paint_tile_at_position(global_position + animation_position)
+	#paint_tile_at_position(global_position + animation_position)
 
 	
 func calculate_size_of_explosion(raycast: RayCast2D):

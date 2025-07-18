@@ -35,12 +35,14 @@ func spawn_bricks():
 					break
 			if is_near_spawn:
 				continue
-
+			
+			if randi() % 10 < 3: #Brick spawn chance
+				continue
 			var brick = BRICK_SCENE.instantiate()
 			brick.global_position = pos
 
-			# Randomly assign power-up (30% chance)
-			if randi() % 10 < 3:
+			# Randomly assign power-up (40% chance)
+			if randi() % 10 < 4:
 				brick.power_up = Utils.power_ups.keys().pick_random()
 
 			brick_walls.add_child(brick,true)
